@@ -29,6 +29,14 @@ class CalculatorHistory {
       this.#updateHistoryDialog(str);
     }
   }
+
+  clearAll() {
+    this.#history = [];
+    this.#updateResult("");
+    if (this.#updateHistoryDialog) {
+      this.#updateHistoryDialog("");
+    }
+  }
 }
 
 
@@ -46,6 +54,10 @@ class Calculator {
   };
 
   evaluate(formula) {
+    if (this.excuteCommand(formula)) {
+      return;
+    }
+
     let result = 0;
     switch (this.#state.state) {
       case "normal":
@@ -76,6 +88,14 @@ class Calculator {
     } catch (error) {
       return "error";
     }
+  }
+
+  excuteCommand(command) {
+    if (command === "clear") {
+      this.#history.clearAll();
+      return true;
+    }
+    return false;
   }
 
 
