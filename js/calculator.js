@@ -95,8 +95,18 @@ class Calculator {
       this.#history.clearAll();
       return true;
     }
+
+    if (command === "hex") {
+      this.#state.state = "hex";
+      return true;
+    }
     return false;
   }
+
+  calhex(formula) {
+    return "0x" + this.calnormal(formula).toString(16);
+  }
+
 
 
   addHistoryDialog(updateHistoryDialog) {
