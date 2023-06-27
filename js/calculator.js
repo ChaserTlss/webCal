@@ -1,14 +1,48 @@
+/* this class store the history and manager the print as a component of the calculator */
+class CalculatorHistory {
+  #updateHistoryDialog// update the history dialog. function xxx(str)
+  #updateResult// update the result of the calculator. function xxx(str) str only one line
+  #history
+
+  /* updateResult is necessary */
+  constructor(updateResult) {
+    this.#updateResult = updateResult;
+    this.#history = [];
+  }
+
+  addHistoryDialog(updateHistoryDialog) {
+    this.#updateHistoryDialog = updateHistoryDialog;
+  }
+
+  pushResult(result, formula) {
+    this.#history.push({ formula, result });
+
+    this.#updateResult(result.toString());
+
+    /* format the histhory and update */
+    if (this.#updateHistoryDialog) {
+      let str = "";
+      for (let i = 0; i < this.#history.length; i++) {
+        str += this.#history[i].formula + " = " + this.#history[i].result + "\n";
+      }
+
+      this.#updateHistoryDialog(str);
+    }
+  }
+}
+
+
+/* this is calculator class */
 class Calculator {
   #state = {
-    result: 0,
-    history: [],
     state: "normal",
-    updateHistoryDialog: null,
-    updateResult: null,
   };
+  #history;
+
 
   constructor(updateResult) {
     this.#state.updateResult = updateResult;
+    this.#history = new CalculatorHistory(updateResult);
   };
 
   evaluate(formula) {
@@ -33,7 +67,7 @@ class Calculator {
         break;
     }
 
-    this.pushResult(result, formula);
+    this.#history.pushResult(result, formula);
   }
 
   calnormal(formula) {
@@ -44,25 +78,9 @@ class Calculator {
     }
   }
 
-  pushResult(result, formula) {
-    this.#state.history.push({ formula, result });
-    result = result.toString();
-
-    this.#state.updateResult(result);
-
-    if (this.#state.updateHistoryDialog) {
-      let str = "";
-      for (let i = 0; i < this.#state.history.length; i++) {
-        str += this.#state.history[i].formula + " = " + this.#state.history[i].result + "\n";
-      }
-
-      this.#state.updateHistoryDialog(str);
-
-    }
-  }
 
   addHistoryDialog(updateHistoryDialog) {
-    this.#state.updateHistoryDialog = updateHistoryDialog;
+    this.#history.addHistoryDialog(updateHistoryDialog);
   }
 
 }
