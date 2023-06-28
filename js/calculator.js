@@ -41,7 +41,7 @@ class CalculatorHistory {
 
 
 /* this is calculator class */
-class Calculator {
+export class Calculator {
   #state = {
     state: "normal",
   };

@@ -1,9 +1,12 @@
+import { Calculator } from "./calculator.js";
 function handleKeyUp(event) {
   const input = document.getElementById("input");
   if (event.key === "Enter") {
     cal.evaluate(input.value);
   }
 }
+
+document.getElementById("input").addEventListener("keyup", handleKeyUp);
 
 function updateResult(str) {
   const result = document.getElementById("input");
@@ -15,6 +18,6 @@ function updateHistoryDialog(str) {
   historyDialog.value = str;
 }
 
-cal = new Calculator(updateResult);
+const cal = new Calculator(updateResult);
 cal.addHistoryDialog(updateHistoryDialog);
 
