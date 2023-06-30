@@ -57,6 +57,12 @@ function testBasicOperator(cal, output) {
     expect(output).toHaveBeenCalledWith('0');
   });
 
+  test('evaluate with error', () => {
+    /* evaluate with 'yoiuou' and output should be call with 'error' */
+    cal.evaluate('yoiuou');
+    expect(output).toHaveBeenCalledWith('error');
+  });
+
 }
 
 describe('calculator', () => {
