@@ -70,4 +70,10 @@ describe('calculator', () => {
   const cal = new calc(updateResult);
 
   testBasicOperator(cal, updateResult);
+
+  test('command clear', () => {
+    /* evaluate with 'clear' and output should be call with '' */
+    cal.evaluate('clear');
+    expect(updateResult).toHaveBeenCalledWith('');
+  });
 });
