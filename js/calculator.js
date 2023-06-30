@@ -54,6 +54,9 @@ export class Calculator {
   };
 
   evaluate(formula) {
+    if (formula === "") {
+      return;
+    }
     if (this.excuteCommand(formula)) {
       return;
     }
